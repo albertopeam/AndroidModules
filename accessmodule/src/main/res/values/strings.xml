@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">accessmodule</string>
+    <string name="invalid_email">El correo electrónico no es válido</string>
+    <string name="password_too_length">La contraseña es demasiado corta</string>
+</resources>
