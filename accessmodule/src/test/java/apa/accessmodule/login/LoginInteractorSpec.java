@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
@@ -15,6 +16,7 @@ import apa.accessmodule.domain.formvalidator.model.FieldError;
 import apa.accessmodule.domain.formvalidator.validator.LoginValidator;
 import apa.accessmodule.domain.interactor.LoginInteractor;
 import apa.accessmodule.domain.model.LoginForm;
+import apa.accessmodule.domain.repository.AccountBoundary;
 import apa.accessmodule.domain.repository.LoginRepository;
 import apa.accessmodule.domain.usecase.login.LoginUseCase;
 import apa.executor.Executor;
@@ -23,9 +25,11 @@ import apa.executor.MainThread;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.isEmptyString;
+import static org.hamcrest.Matchers.not;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doAnswer;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
@@ -36,24 +40,19 @@ import static org.mockito.Mockito.when;
 public class LoginInteractorSpec {
 
 
-    MainThread mainThreadMock;
-    Executor executorMock;
-    LoginUseCase.LoginCallback callbackMock;
-    LoginRepository loginRepositoryMock;
-    LoginInteractor loginInteractor;
-    LoginValidator loginValidator;
-    @Captor
-    private ArgumentCaptor<List<FieldError>> listArgumentCaptor;
+    @Mock MainThread mainThreadMock;
+    @Mock Executor executorMock;
+    @Mock LoginUseCase.LoginCallback callbackMock;
+    @Mock LoginRepository loginRepositoryMock;
+    @Mock LoginInteractor loginInteractor;
+    @Mock LoginValidator loginValidator;
+    @Captor ArgumentCaptor<List<FieldError>> listArgumentCaptor;
+    @Captor ArgumentCaptor<String > errorArgumentCaptor;
 
 
     @Before
     public void setUp(){
         MockitoAnnotations.initMocks(this);
-        callbackMock = mock(LoginUseCase.LoginCallback.class);
-        mainThreadMock = mock(MainThread.class);
-        executorMock = mock(Executor.class);
-        loginRepositoryMock = mock(LoginRepository.class);
-        loginValidator = mock(LoginValidator.class);
         loginInteractor = new LoginInteractor(executorMock, mainThreadMock, loginValidator,loginRepositoryMock);
 
         doAnswer(new Answer() {
@@ -76,6 +75,7 @@ public class LoginInteractorSpec {
 
     @Test
     public void shouldExecute() {
+        //TODO: algo más hay que inyectar: el loginRepository devuelve null al hacer login y peta al ejecturar
         loginInteractor.login(new LoginForm(), callbackMock);
 
         verify(executorMock).runInBackgroundThread(any(LoginInteractor.class));
@@ -97,13 +97,47 @@ public class LoginInteractorSpec {
         });
         loginInteractor.login(new LoginForm(), callbackMock);
 
-        verify(executorMock).runInBackgroundThread(any(LoginInteractor.class));
 
+        verify(executorMock).runInBackgroundThread(any(LoginInteractor.class));
         verify(callbackMock).invalidForm(listArgumentCaptor.capture());
         assertThat(listArgumentCaptor.getValue().size(), is(1));
 
         verifyNoMoreInteractions(executorMock);
         verifyNoMoreInteractions(loginRepositoryMock);
+    }
+
+
+    @Test
+    public void whenAccountNotExistsThenError(){
+        LoginForm loginForm = new LoginForm();
+
+        when(loginValidator.validate()).thenAnswer(new Answer<List<FieldError>>() {
+            @Override
+            public List<FieldError> answer(InvocationOnMock invocation) throws Throwable {
+                return new ArrayList<>();
+            }
+        });
+        when(loginRepositoryMock.login(loginForm)).thenAnswer(new Answer<AccountBoundary>() {
+            @Override
+            public AccountBoundary answer(InvocationOnMock invocationOnMock) throws Throwable {
+                AccountBoundary accountBoundary = new AccountBoundary();
+                Exception exception = new Exception("User not exists");
+                accountBoundary.setException(exception);
+                return accountBoundary;
+            }
+        });
+        loginInteractor.login(loginForm, callbackMock);
+
+        verify(executorMock, times(1)).runInBackgroundThread(any(LoginInteractor.class));
+        verify(callbackMock, times(1)).loginError(errorArgumentCaptor.capture());
+        verify(mainThreadMock).runInMainThread(any(Runnable.class));
+        assertThat(errorArgumentCaptor.getValue(), not(isEmptyString()));
+
+        verifyNoMoreInteractions(executorMock);
+        verifyNoMoreInteractions(callbackMock);
+        //verify(executorMock, never()).runInBackgroundThread(any(LoginInteractor.class));
+        //verify(loginRepositoryMock, never()).login(any(LoginForm.class));
+        //verify(callbackMock, never()).loginError(any(String.class));
     }
 
 

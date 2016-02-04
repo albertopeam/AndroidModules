@@ -5,6 +5,7 @@ import java.util.List;
 import apa.accessmodule.domain.formvalidator.model.FieldError;
 import apa.accessmodule.domain.formvalidator.validator.Validator;
 import apa.accessmodule.domain.model.LoginForm;
+import apa.accessmodule.domain.repository.AccountBoundary;
 import apa.accessmodule.domain.repository.LoginRepository;
 import apa.accessmodule.domain.usecase.UseCaseAbs;
 import apa.accessmodule.domain.usecase.login.LoginUseCase;
@@ -33,7 +34,8 @@ public class LoginInteractor extends UseCaseAbs implements LoginUseCase {
     public void run(){
         List<FieldError>fieldErrors = loginValidator.validate();
         if (fieldErrors.isEmpty()){
-
+            AccountBoundary accountBoundary = loginRepository.login(loginForm);
+            onLogin(accountBoundary);
         }else{
             callback.invalidForm(fieldErrors);
         }
@@ -45,5 +47,33 @@ public class LoginInteractor extends UseCaseAbs implements LoginUseCase {
         this.callback = loginCallback;
         this.loginForm = loginForm;
         runOnBackgroundThread(this);
+    }
+
+
+    private void onLogin(AccountBoundary accountBoundary){
+        if (accountBoundary.isSuccess()){
+
+        }else{
+            onError(accountBoundary);
+        }
+    }
+
+
+    private void onError(AccountBoundary accountBoundary){
+        if (hasCallback()){
+            final String error = accountBoundary.getException().getMessage();
+            runOnMainThread(new Runnable() {
+                @Override
+                public void run() {
+                    callback.loginError(error);
+                }
+            });
+
+        }
+    }
+
+
+    private boolean hasCallback(){
+        return callback != null;
     }
 }
