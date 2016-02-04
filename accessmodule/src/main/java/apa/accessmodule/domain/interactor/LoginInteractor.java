@@ -52,9 +52,22 @@ public class LoginInteractor extends UseCaseAbs implements LoginUseCase {
 
     private void onLogin(AccountBoundary accountBoundary){
         if (accountBoundary.isSuccess()){
-
+            onSuccess(accountBoundary);
         }else{
             onError(accountBoundary);
+        }
+    }
+
+
+    private void onSuccess(AccountBoundary accountBoundary){
+        if (hasCallback()){
+            final AccountBoundary returnAccountBoundary = accountBoundary;
+            runOnMainThread(new Runnable() {
+                @Override
+                public void run() {
+                    callback.logedIn(returnAccountBoundary);
+                }
+            });
         }
     }
 

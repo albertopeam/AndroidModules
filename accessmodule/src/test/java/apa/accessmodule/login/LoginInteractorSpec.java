@@ -24,6 +24,7 @@ import apa.executor.Interactor;
 import apa.executor.MainThread;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.isEmptyString;
 import static org.hamcrest.Matchers.not;
@@ -48,6 +49,7 @@ public class LoginInteractorSpec {
     @Mock LoginValidator loginValidator;
     @Captor ArgumentCaptor<List<FieldError>> listArgumentCaptor;
     @Captor ArgumentCaptor<String > errorArgumentCaptor;
+    @Captor ArgumentCaptor<AccountBoundary> accountBoundaryArgumentCaptor;
 
 
     @Before
@@ -59,7 +61,7 @@ public class LoginInteractorSpec {
             @Override
             public Object answer(InvocationOnMock invocation) throws Throwable {
                 ((Runnable)invocation.getArguments()[0]).run();
-                return null;
+                return new AccountBoundary();
             }
         }).when(executorMock).runInBackgroundThread(any(Interactor.class));
 
@@ -70,17 +72,6 @@ public class LoginInteractorSpec {
                 return null;
             }
         }).when(mainThreadMock).runInMainThread(any(Runnable.class));
-    }
-
-
-    @Test
-    public void shouldExecute() {
-        //TODO: algo más hay que inyectar: el loginRepository devuelve null al hacer login y peta al ejecturar
-        loginInteractor.login(new LoginForm(), callbackMock);
-
-        verify(executorMock).runInBackgroundThread(any(LoginInteractor.class));
-        verifyNoMoreInteractions(executorMock);
-        verifyNoMoreInteractions(loginRepositoryMock);
     }
 
 
@@ -135,14 +126,39 @@ public class LoginInteractorSpec {
 
         verifyNoMoreInteractions(executorMock);
         verifyNoMoreInteractions(callbackMock);
-        //verify(executorMock, never()).runInBackgroundThread(any(LoginInteractor.class));
-        //verify(loginRepositoryMock, never()).login(any(LoginForm.class));
-        //verify(callbackMock, never()).loginError(any(String.class));
     }
 
 
-    //TODO: test
+    @Test
+    public void whenAccountExistsThenReturn(){
+        LoginForm loginForm = new LoginForm();
+        AccountBoundary accountBoundary = new AccountBoundary();
+        accountBoundary.setEmail("a@gmail.com");
+        accountBoundary.setToken("abcd1234");
 
-    //falta el test ok server
-    //falta el test fail server
+        when(loginValidator.validate()).thenAnswer(new Answer<List<FieldError>>() {
+            @Override
+            public List<FieldError> answer(InvocationOnMock invocation) throws Throwable {
+                return new ArrayList<>();
+            }
+        });
+        when(loginRepositoryMock.login(loginForm)).thenAnswer(new Answer<AccountBoundary>() {
+            @Override
+            public AccountBoundary answer(InvocationOnMock invocationOnMock) throws Throwable {
+                AccountBoundary mockAccountBoundary = new AccountBoundary();
+                mockAccountBoundary.setEmail("a@gmail.com");
+                mockAccountBoundary.setToken("abcd1234");
+                return mockAccountBoundary;
+            }
+        });
+        loginInteractor.login(loginForm, callbackMock);
+
+        verify(executorMock, times(1)).runInBackgroundThread(any(LoginInteractor.class));
+        verify(callbackMock, times(1)).logedIn(accountBoundaryArgumentCaptor.capture());
+        verify(mainThreadMock).runInMainThread(any(Runnable.class));
+        assertThat(accountBoundaryArgumentCaptor.getValue(), equalTo(accountBoundary));
+
+        verifyNoMoreInteractions(executorMock);
+        verifyNoMoreInteractions(callbackMock);
+    }
 }
