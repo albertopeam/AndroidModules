@@ -10,7 +10,7 @@ public class AccountEntity {
 
 
     public String getEmail() {
-        return email;
+        return email != null?email:"";
     }
 
     public void setEmail(String email) {
@@ -18,10 +18,21 @@ public class AccountEntity {
     }
 
     public String getToken() {
-        return token;
+        return token!=null?token:"";
     }
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof AccountEntity){
+            AccountEntity accountEntity = (AccountEntity) o;
+            return accountEntity.getToken().equalsIgnoreCase(getToken()) &&
+                    accountEntity.getEmail().equalsIgnoreCase(getEmail());
+        }else {
+            return false;
+        }
     }
 }
