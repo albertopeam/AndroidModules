@@ -1,9 +1,9 @@
-package apa.accessmodule.data.entity;
+package apa.accessmodule.data.model.cloud;
 
 /**
  * Created by alberto on 30/1/16.
  */
-public class AccountEntity {
+public class AccountCloud {
 
     private String email;
     private String token;
@@ -27,10 +27,10 @@ public class AccountEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (o instanceof AccountEntity){
-            AccountEntity accountEntity = (AccountEntity) o;
-            return accountEntity.getToken().equalsIgnoreCase(getToken()) &&
-                    accountEntity.getEmail().equalsIgnoreCase(getEmail());
+        if (o instanceof AccountCloud){
+            AccountCloud accountCloud = (AccountCloud) o;
+            return accountCloud.getToken().equalsIgnoreCase(getToken()) &&
+                    accountCloud.getEmail().equalsIgnoreCase(getEmail());
         }else {
             return false;
         }

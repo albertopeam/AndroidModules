@@ -8,8 +8,8 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
 import apa.accessmodule.data.api.LoginApi;
-import apa.accessmodule.data.entity.AccountEntity;
-import apa.accessmodule.data.repository.datasource.LoginCloudDataSource;
+import apa.accessmodule.data.model.cloud.AccountCloud;
+import apa.accessmodule.data.repository.login.sources.LoginCloudDataSource;
 import apa.accessmodule.domain.model.LoginForm;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -27,6 +27,7 @@ public class LoginCloudDataSourceSpec {
     @Mock LoginApi loginApiMock;
     @Mock LoginForm loginFormMock;
     LoginCloudDataSource loginCloudDataSource;
+    //TODO: meter mockServer square.
 
 
     @Before
@@ -48,22 +49,22 @@ public class LoginCloudDataSourceSpec {
 
     @Test
     public void whenApiReturnsAccountThenReturnAccoun() throws Exception{
-        AccountEntity accountEntity = new AccountEntity();
-        accountEntity.setEmail("a@gmail.com");
-        accountEntity.setToken("abcd1234");
+        AccountCloud accountCloud = new AccountCloud();
+        accountCloud.setEmail("a@gmail.com");
+        accountCloud.setToken("abcd1234");
 
-        when(loginApiMock.login(loginFormMock)).thenAnswer(new Answer<AccountEntity>() {
+        when(loginApiMock.login(loginFormMock)).thenAnswer(new Answer<AccountCloud>() {
             @Override
-            public AccountEntity answer(InvocationOnMock invocation) throws Throwable {
-                AccountEntity accountEntityAnswer = new AccountEntity();
-                accountEntityAnswer.setEmail("a@gmail.com");
-                accountEntityAnswer.setToken("abcd1234");
-                return accountEntityAnswer;
+            public AccountCloud answer(InvocationOnMock invocation) throws Throwable {
+                AccountCloud accountCloudAnswer = new AccountCloud();
+                accountCloudAnswer.setEmail("a@gmail.com");
+                accountCloudAnswer.setToken("abcd1234");
+                return accountCloudAnswer;
             }
         });
 
-        AccountEntity accountEntityResponse = loginCloudDataSource.login(loginFormMock);
-        assertThat(accountEntityResponse, equalTo(accountEntity));
+        AccountCloud accountCloudResponse = loginCloudDataSource.login(loginFormMock);
+        assertThat(accountCloudResponse, equalTo(accountCloud));
 
     }
 

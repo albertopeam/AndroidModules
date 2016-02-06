@@ -2,7 +2,7 @@ package apa.accessmodule;
 
 import org.junit.Test;
 
-import apa.accessmodule.data.entity.AccountEntity;
+import apa.accessmodule.data.model.cloud.AccountCloud;
 import apa.accessmodule.domain.repository.AccountBoundary;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -15,11 +15,11 @@ public class AccountBoundarySpec {
 
     @Test
     public void whenAccountSuppliedToAccountBoundaryThenAreEquals(){
-        AccountEntity accountEntity = new AccountEntity();
-        accountEntity.setEmail("a@gmail.com");
-        accountEntity.setToken("askdalsdknaskdansldnasdlknasdlkansd");
+        AccountCloud accountCloud = new AccountCloud();
+        accountCloud.setEmail("a@gmail.com");
+        accountCloud.setToken("askdalsdknaskdansldnasdlknasdlkansd");
         AccountBoundary boundary = new AccountBoundary();
-        assertThat(accountEntity.getEmail(), equals(boundary.getEmail()));
-        assertThat(accountEntity.getToken(), equals(boundary.getToken()));
+        assertThat(accountCloud.getEmail(), equals(boundary.getEmail()));
+        assertThat(accountCloud.getToken(), equals(boundary.getToken()));
     }
 }

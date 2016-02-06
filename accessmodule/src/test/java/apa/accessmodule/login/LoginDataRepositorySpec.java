@@ -4,8 +4,8 @@ import org.junit.Before;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import apa.accessmodule.data.repository.LoginDataRepository;
-import apa.accessmodule.data.repository.datasource.LoginCloudDataSource;
+import apa.accessmodule.data.repository.login.LoginDataRepository;
+import apa.accessmodule.data.repository.login.sources.LoginCloudDataSource;
 import apa.accessmodule.domain.model.LoginForm;
 
 /**
@@ -26,6 +26,6 @@ public class LoginDataRepositorySpec {
     }
 
 
-    test con exception
-    test con accountEntity/accountBoundary
+    //test con exception
+    //test con accountEntity/accountBoundary
 }

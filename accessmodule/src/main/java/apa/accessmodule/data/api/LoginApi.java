@@ -1,6 +1,6 @@
 package apa.accessmodule.data.api;
 
-import apa.accessmodule.data.entity.AccountEntity;
+import apa.accessmodule.data.model.cloud.AccountCloud;
 import apa.accessmodule.domain.model.LoginForm;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
@@ -11,5 +11,5 @@ import retrofit2.http.POST;
 public interface LoginApi {
 
     @POST("api/accounts")
-    AccountEntity login(@Body LoginForm loginForm);
+    AccountCloud login(@Body LoginForm loginForm);
 }

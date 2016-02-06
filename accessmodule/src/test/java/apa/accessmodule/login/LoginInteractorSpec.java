@@ -18,6 +18,7 @@ import apa.accessmodule.domain.interactor.LoginInteractor;
 import apa.accessmodule.domain.model.LoginForm;
 import apa.accessmodule.domain.repository.AccountBoundary;
 import apa.accessmodule.domain.repository.LoginRepository;
+import apa.accessmodule.domain.repository.StoreAccountRepository;
 import apa.accessmodule.domain.usecase.login.LoginUseCase;
 import apa.executor.Executor;
 import apa.executor.Interactor;
@@ -47,15 +48,18 @@ public class LoginInteractorSpec {
     @Mock LoginRepository loginRepositoryMock;
     @Mock LoginInteractor loginInteractor;
     @Mock LoginValidator loginValidator;
+    @Mock LoginForm loginFormMock;
+    @Mock StoreAccountRepository storeAccountRepositoryMock;
     @Captor ArgumentCaptor<List<FieldError>> listArgumentCaptor;
     @Captor ArgumentCaptor<String > errorArgumentCaptor;
     @Captor ArgumentCaptor<AccountBoundary> accountBoundaryArgumentCaptor;
+    String errorStore = "Error storing account";
 
 
     @Before
     public void setUp(){
         MockitoAnnotations.initMocks(this);
-        loginInteractor = new LoginInteractor(executorMock, mainThreadMock, loginValidator,loginRepositoryMock);
+        loginInteractor = new LoginInteractor(executorMock, mainThreadMock, loginValidator,loginRepositoryMock, storeAccountRepositoryMock, errorStore);
 
         doAnswer(new Answer() {
             @Override
@@ -130,7 +134,7 @@ public class LoginInteractorSpec {
 
 
     @Test
-    public void whenAccountExistsThenReturn(){
+    public void whenApiReturnAccountThenThenSuccessStoring(){
         LoginForm loginForm = new LoginForm();
         AccountBoundary accountBoundary = new AccountBoundary();
         accountBoundary.setEmail("a@gmail.com");
@@ -151,13 +155,59 @@ public class LoginInteractorSpec {
                 return mockAccountBoundary;
             }
         });
+        when(storeAccountRepositoryMock.store(accountBoundary)).then(new Answer<Boolean>() {
+            @Override
+            public Boolean answer(InvocationOnMock invocation) throws Throwable {
+                return true;
+            }
+        });
         loginInteractor.login(loginForm, callbackMock);
 
         verify(executorMock, times(1)).runInBackgroundThread(any(LoginInteractor.class));
-        verify(callbackMock, times(1)).logedIn(accountBoundaryArgumentCaptor.capture());
+        verify(storeAccountRepositoryMock, times(1)).store(any(AccountBoundary.class));
         verify(mainThreadMock).runInMainThread(any(Runnable.class));
+        verify(callbackMock, times(1)).logedIn(accountBoundaryArgumentCaptor.capture());
         assertThat(accountBoundaryArgumentCaptor.getValue(), equalTo(accountBoundary));
 
+        verifyNoMoreInteractions(executorMock);
+        verifyNoMoreInteractions(callbackMock);
+    }
+
+
+    @Test
+    public void whenApiReturnAccountThenFailStoring(){
+        final AccountBoundary accountBoundary = new AccountBoundary();
+        accountBoundary.setEmail("a@gmail.com");
+        accountBoundary.setToken("abcd1234");
+
+        when(loginValidator.validate()).thenAnswer(new Answer<List<FieldError>>() {
+            @Override
+            public List<FieldError> answer(InvocationOnMock invocation) throws Throwable {
+                return new ArrayList<>();
+            }
+        });
+
+        when(loginRepositoryMock.login(loginFormMock)).thenAnswer(new Answer<AccountBoundary>() {
+            @Override
+            public AccountBoundary answer(InvocationOnMock invocationOnMock) throws Throwable {
+                return accountBoundary;
+            }
+        });
+
+        when(storeAccountRepositoryMock.store(accountBoundary)).then(new Answer<Boolean>() {
+            @Override
+            public Boolean answer(InvocationOnMock invocation) throws Throwable {
+                return false;
+            }
+        });
+
+        loginInteractor.login(loginFormMock, callbackMock);
+
+        verify(executorMock, times(1)).runInBackgroundThread(any(LoginInteractor.class));
+        verify(storeAccountRepositoryMock, times(1)).store(any(AccountBoundary.class));
+        verify(mainThreadMock).runInMainThread(any(Runnable.class));
+        verify(callbackMock, times(1)).loginError(errorArgumentCaptor.capture());
+        assertThat(errorArgumentCaptor.getValue(), equalTo(errorStore));
         verifyNoMoreInteractions(executorMock);
         verifyNoMoreInteractions(callbackMock);
     }

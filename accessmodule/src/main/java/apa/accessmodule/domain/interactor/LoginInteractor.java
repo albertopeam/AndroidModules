@@ -7,6 +7,7 @@ import apa.accessmodule.domain.formvalidator.validator.Validator;
 import apa.accessmodule.domain.model.LoginForm;
 import apa.accessmodule.domain.repository.AccountBoundary;
 import apa.accessmodule.domain.repository.LoginRepository;
+import apa.accessmodule.domain.repository.StoreAccountRepository;
 import apa.accessmodule.domain.usecase.UseCaseAbs;
 import apa.accessmodule.domain.usecase.login.LoginUseCase;
 import apa.executor.Executor;
@@ -19,26 +20,19 @@ public class LoginInteractor extends UseCaseAbs implements LoginUseCase {
 
 
     private LoginRepository loginRepository;
+    private StoreAccountRepository storeAccountRepository;
     private LoginUseCase.LoginCallback callback;
     private LoginForm loginForm;
     private Validator loginValidator;
+    private String errorStore;
 
 
-    public LoginInteractor(Executor executor, MainThread mainThread, Validator loginValidator, LoginRepository loginRepository) {
+    public LoginInteractor(Executor executor, MainThread mainThread, Validator loginValidator, LoginRepository loginRepository, StoreAccountRepository storeAccountRepository, String errorStore) {
         super(executor, mainThread);
         this.loginValidator = loginValidator;
         this.loginRepository = loginRepository;
-    }
-
-    @Override
-    public void run(){
-        List<FieldError>fieldErrors = loginValidator.validate();
-        if (fieldErrors.isEmpty()){
-            AccountBoundary accountBoundary = loginRepository.login(loginForm);
-            onLogin(accountBoundary);
-        }else{
-            callback.invalidForm(fieldErrors);
-        }
+        this.storeAccountRepository = storeAccountRepository;
+        this.errorStore = errorStore;
     }
 
 
@@ -50,10 +44,37 @@ public class LoginInteractor extends UseCaseAbs implements LoginUseCase {
     }
 
 
-    private void onLogin(AccountBoundary accountBoundary){
+    @Override
+    public void run(){
+        login();
+    }
+
+
+    private void login(){
+        List<FieldError>fieldErrors = loginValidator.validate();
+        if (fieldErrors.isEmpty()){
+            AccountBoundary accountBoundary = loginRepository.login(loginForm);
+            onEndLogin(accountBoundary);
+        }else{
+            callback.invalidForm(fieldErrors);
+        }
+    }
+
+
+    private void onEndLogin(AccountBoundary accountBoundary){
         if (accountBoundary.isSuccess()){
+            store(accountBoundary);
+        }else{
+            onError(accountBoundary);
+        }
+    }
+
+
+    private void store(AccountBoundary accountBoundary){
+        if (storeAccountRepository.store(accountBoundary)){
             onSuccess(accountBoundary);
         }else{
+            accountBoundary.setException(new Exception(errorStore));
             onError(accountBoundary);
         }
     }

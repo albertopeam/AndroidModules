@@ -1,8 +1,8 @@
-package apa.accessmodule.data.repository.datasource;
+package apa.accessmodule.data.repository.login.sources;
 
 import apa.accessmodule.data.api.LoginApi;
-import apa.accessmodule.data.entity.AccountEntity;
-import apa.accessmodule.data.repository.LoginDataSource;
+import apa.accessmodule.data.model.cloud.AccountCloud;
+import apa.accessmodule.data.repository.login.LoginDataSource;
 import apa.accessmodule.domain.model.LoginForm;
 
 /**
@@ -20,7 +20,7 @@ public class LoginCloudDataSource implements LoginDataSource {
 
 
     @Override
-    public AccountEntity login(LoginForm loginForm) throws Exception{
+    public AccountCloud login(LoginForm loginForm) throws Exception{
         return api.login(loginForm);
     }
 }

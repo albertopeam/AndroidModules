@@ -1,4 +1,4 @@
-package apa.accessmodule.data.repository;
+package apa.accessmodule.data.repository.login;
 
 import apa.accessmodule.domain.model.LoginForm;
 import apa.accessmodule.domain.repository.AccountBoundary;
