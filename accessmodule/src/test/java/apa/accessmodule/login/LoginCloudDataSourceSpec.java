@@ -55,13 +55,24 @@ public class LoginCloudDataSourceSpec {
         accountEntity.setEmail("a@gmail.com");
         accountEntity.setToken("abcd1234");
 
+        final AccountCloud accountCloudAnswer = new AccountCloud();
+        accountCloudAnswer.setEmail("a@gmail.com");
+        accountCloudAnswer.setToken("abcd1234");
+
         when(loginApiMock.login(loginFormMock)).thenAnswer(new Answer<AccountCloud>() {
             @Override
             public AccountCloud answer(InvocationOnMock invocation) throws Throwable {
-                AccountCloud accountCloudAnswer = new AccountCloud();
-                accountCloudAnswer.setEmail("a@gmail.com");
-                accountCloudAnswer.setToken("abcd1234");
                 return accountCloudAnswer;
+            }
+        });
+        when(mapper.map(accountCloudAnswer)).thenAnswer(new Answer<AccountEntity>() {
+            @Override
+            public AccountEntity answer(InvocationOnMock invocation) throws Throwable {
+                AccountEntity accountEntity = new AccountEntity();
+                AccountCloud accountCloud = accountCloudAnswer;
+                accountEntity.setEmail(accountCloud.getEmail());
+                accountEntity.setToken(accountCloud.getToken());
+                return accountEntity;
             }
         });
 

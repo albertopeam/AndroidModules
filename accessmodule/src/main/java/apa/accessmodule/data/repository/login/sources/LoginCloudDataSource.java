@@ -2,6 +2,7 @@ package apa.accessmodule.data.repository.login.sources;
 
 
 import apa.accessmodule.data.api.LoginApi;
+import apa.accessmodule.data.model.cloud.AccountCloud;
 import apa.accessmodule.data.model.entity.AccountEntity;
 import apa.accessmodule.data.model.mapper.cloud.AccountCloudMapper;
 import apa.accessmodule.data.repository.login.LoginDataSource;
@@ -25,8 +26,8 @@ public class LoginCloudDataSource implements LoginDataSource {
 
     @Override
     public AccountEntity login(LoginForm loginForm) throws Exception{
-        //todo
-        //TODO: conex a api... exception pa arriba si peta o lo que sea
-        return null;
+        AccountCloud accountCloud = api.login(loginForm);
+        AccountEntity accountEntity = mapper.map(accountCloud);
+        return accountEntity;
     }
 }

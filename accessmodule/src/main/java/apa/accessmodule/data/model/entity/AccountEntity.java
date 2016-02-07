@@ -24,4 +24,16 @@ public class AccountEntity {
     public void setToken(String token) {
         this.token = token;
     }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof AccountEntity){
+            AccountEntity accountEntity = (AccountEntity) o;
+            return accountEntity.getEmail().equals(this.getEmail()) &&
+                    accountEntity.getToken().equals(this.getToken());
+        }else{
+            return false;
+        }
+    }
 }
