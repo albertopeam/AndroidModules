@@ -1,5 +1,6 @@
 package apa.accessmodule.data.repository.login;
 
+import apa.accessmodule.data.model.entity.AccountEntity;
 import apa.accessmodule.domain.model.LoginForm;
 import apa.accessmodule.domain.repository.AccountBoundary;
 import apa.accessmodule.domain.repository.LoginRepository;
@@ -20,7 +21,14 @@ public class LoginDataRepository implements LoginRepository {
 
     @Override
     public AccountBoundary login(LoginForm loginForm){
-        //AccountEntity accountEntity = loginDataSource.login(loginForm);
-        return null;
+        AccountBoundary accountBoundary = new AccountBoundary();
+        try {
+            AccountEntity accountEntity = loginDataSource.login(loginForm);
+            accountBoundary.setToken(accountEntity.getToken());
+            accountBoundary.setEmail(accountEntity.getEmail());
+        } catch (Exception e) {
+            accountBoundary.setException(e);
+        }
+        return accountBoundary;
     }
 }

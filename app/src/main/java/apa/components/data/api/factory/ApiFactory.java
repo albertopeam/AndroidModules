@@ -1,4 +1,4 @@
-package apa.accessmodule.data.api;
+package apa.components.data.api.factory;
 
 
 import com.google.gson.Gson;
