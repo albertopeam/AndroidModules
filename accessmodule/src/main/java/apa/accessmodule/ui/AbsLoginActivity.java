@@ -9,7 +9,7 @@ import apa.accessmodule.R;
 /**
  * Created by alberto on 3/1/16.
  */
-public abstract class LoginActivity extends AppCompatActivity {
+public abstract class AbsLoginActivity extends AppCompatActivity {
 
 
     private LoginPresenter presenter;
@@ -18,11 +18,11 @@ public abstract class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setView();
+        setView(R.layout.login);
     }
 
-    protected void setView() {
-        setContentView(R.layout.login);
+    protected void setView(int reference) {
+        setContentView(reference);
     }
 
 

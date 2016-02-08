@@ -1,4 +1,4 @@
-package apa.components.data.adapter;
+package apa.components.data.api.adapter;
 
 import apa.accessmodule.data.model.cloud.AccountCloud;
 import apa.accessmodule.domain.model.LoginForm;

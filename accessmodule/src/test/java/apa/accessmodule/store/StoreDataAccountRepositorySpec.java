@@ -8,6 +8,7 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
 import apa.accessmodule.data.model.entity.AccountEntity;
+import apa.accessmodule.data.model.mapper.cloud.AccountBoundaryToAccountEntityMapper;
 import apa.accessmodule.data.repository.store.StoreAccountSource;
 import apa.accessmodule.data.repository.store.StoreDataAccountRepository;
 import apa.accessmodule.domain.repository.AccountBoundary;
@@ -26,6 +27,7 @@ public class StoreDataAccountRepositorySpec {
     @Mock StoreAccountSource cacheSourceMock;
     @Mock AccountEntity accountEntityMock;
     @Mock AccountBoundary accountBoundaryMock;
+    @Mock AccountBoundaryToAccountEntityMapper mapperMock;
     private StoreDataAccountRepository repository;
 
 
@@ -33,13 +35,22 @@ public class StoreDataAccountRepositorySpec {
     @Before
     public void setUp(){
         MockitoAnnotations.initMocks(this);
-        repository = new StoreDataAccountRepository(cacheSourceMock, persistanceSourceMock);
+        repository = new StoreDataAccountRepository(cacheSourceMock, persistanceSourceMock, mapperMock);
+
         when(accountBoundaryMock.getEmail()).thenReturn("a@gmail.com");
         when(accountBoundaryMock.getToken()).thenReturn("abcd1234");
+        when(accountEntityMock.getEmail()).thenReturn("a@gmail.com");
+        when(accountEntityMock.getToken()).thenReturn("abcd1234");
     }
 
     @Test
     public void whenDataSourcesSaveThenReturnTrue(){
+        when(mapperMock.map(accountBoundaryMock)).thenAnswer(new Answer<AccountEntity>() {
+            @Override
+            public AccountEntity answer(InvocationOnMock invocation) throws Throwable {
+                return accountEntityMock;
+            }
+        });
         when(cacheSourceMock.store(accountEntityMock)).thenAnswer(new Answer<Boolean>() {
             @Override
             public Boolean answer(InvocationOnMock invocation) throws Throwable {

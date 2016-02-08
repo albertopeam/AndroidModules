@@ -1,4 +1,4 @@
-package apa.accessmodule.data.model.database;
+package apa.components.data.database;
 
 /**
  * Created by alberto on 6/2/16.
