@@ -9,15 +9,18 @@ import apa.accessmodule.domain.repository.StoreAccountRepository;
 public class StoreDataAccountRepository implements StoreAccountRepository{
 
 
-    private StoreAccountSource storeAccountSource;
+    private StoreAccountSource cacheSource;
+    private StoreAccountSource persistenceSource;
 
 
-    public StoreDataAccountRepository(StoreAccountSource storeAccountSource) {
-        this.storeAccountSource = storeAccountSource;
+    public StoreDataAccountRepository(StoreAccountSource cacheSource, StoreAccountSource persistenceSource) {
+        this.cacheSource = cacheSource;
+        this.persistenceSource = persistenceSource;
     }
 
     @Override
     public boolean store(AccountBoundary accountBoundary) {
+        //Store inline. both providers
         return false;
     }
 }
