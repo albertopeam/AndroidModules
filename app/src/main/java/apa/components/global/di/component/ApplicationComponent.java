@@ -1,11 +1,11 @@
 
-package apa.daggermodule.component;
+package apa.components.global.di.component;
 
 import android.app.Application;
 
 import javax.inject.Singleton;
 
-import apa.daggermodule.module.ApplicationModule;
+import apa.components.global.di.module.ApplicationModule;
 import dagger.Component;
 
 /**

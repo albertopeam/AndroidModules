@@ -1,15 +1,18 @@
-package apa.daggermodule;
+package apa.components.global;
 
 import android.app.Application;
 
+import com.raizlabs.android.dbflow.config.FlowManager;
+
+import apa.components.global.di.Graph;
 import apa.components.global.di.component.ApplicationComponent;
 import apa.components.global.di.component.DaggerApplicationComponent;
 import apa.components.global.di.module.ApplicationModule;
 
 /**
- * Created by alberto on 10/1/16.
+ * Created by alberto on 11/2/16.
  */
-public class AndroidApp extends Application implements Graph{
+public class AndroidApp extends Application implements Graph {
 
 
     private ApplicationComponent applicationComponent;
@@ -19,6 +22,7 @@ public class AndroidApp extends Application implements Graph{
     public void onCreate() {
         super.onCreate();
         initGraph();
+        FlowManager.init(this);
     }
 
 

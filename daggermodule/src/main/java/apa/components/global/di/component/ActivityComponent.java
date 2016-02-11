@@ -1,9 +1,9 @@
-package apa.daggermodule.component;
+package apa.components.global.di.component;
 
 import android.app.Activity;
 
-import apa.daggermodule.common.ForActivity;
-import apa.daggermodule.module.shared.AppSharedModule;
+import apa.components.global.di.common.ForActivity;
+import apa.components.global.di.module.shared.AppSharedModule;
 import dagger.Component;
 
 /**

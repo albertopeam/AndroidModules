@@ -1,9 +1,9 @@
-package apa.daggermodule.module.shared;
+package apa.components.global.di.module.shared;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import apa.daggermodule.common.ForApplication;
+import apa.components.global.di.scope.ForApplication;
 import dagger.Module;
 import dagger.Provides;
 

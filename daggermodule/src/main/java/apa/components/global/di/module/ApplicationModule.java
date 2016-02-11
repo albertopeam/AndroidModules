@@ -1,4 +1,4 @@
-package apa.daggermodule.module;
+package apa.components.global.di.module;
 
 import android.app.Application;
 import android.content.Context;
@@ -6,7 +6,7 @@ import android.content.res.Resources;
 
 import javax.inject.Singleton;
 
-import apa.daggermodule.common.ForApplication;
+import apa.components.global.di.common.ForApplication;
 import dagger.Module;
 import dagger.Provides;
 /**

@@ -1,4 +1,4 @@
-package apa.daggermodule.common;
+package apa.components.global.di.scope;
 
 import java.lang.annotation.Retention;
 

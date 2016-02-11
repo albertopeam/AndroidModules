@@ -15,24 +15,25 @@
  */
 package apa.components.di;
 
-import dagger.Module;
-import dagger.Provides;
 import javax.inject.Singleton;
 
-/**
- * Dagger module created to provide every dependency related with our execution service. Main
- * dependencies provided by this module are: ThreadExecutor and MainThreadImpl.
- *
- * @author Pedro Vicente Gómez Sánchez
- */
-@Module(library = true)
+import apa.executor.Executor;
+import apa.executor.MainThread;
+import apa.executor.MainThreadImpl;
+import apa.executor.ThreadExecutor;
+import dagger.Module;
+import dagger.Provides;
+
+@Module
 public final class ExecutorModule {
 
-  @Provides @Singleton Executor provideExecutor(ThreadExecutor threadExecutor) {
+  @Provides @Singleton
+  Executor provideExecutor(ThreadExecutor threadExecutor) {
     return threadExecutor;
   }
 
-  @Provides @Singleton MainThread provideMainThread(MainThreadImpl mainThread) {
+  @Provides @Singleton
+  MainThread provideMainThread(MainThreadImpl mainThread) {
     return mainThread;
   }
 }

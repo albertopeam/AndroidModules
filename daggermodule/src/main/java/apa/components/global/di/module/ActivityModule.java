@@ -1,4 +1,4 @@
-package apa.daggermodule.module;
+package apa.components.global.di.module;
 
 import android.app.Activity;
 

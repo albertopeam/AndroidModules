@@ -1,4 +1,5 @@
-package apa.daggermodule;
+package apa.components.global.di;
+
 
 import apa.components.global.di.component.ApplicationComponent;
 

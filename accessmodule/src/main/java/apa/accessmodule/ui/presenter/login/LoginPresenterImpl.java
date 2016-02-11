@@ -6,6 +6,7 @@ import apa.accessmodule.domain.formvalidator.model.FieldError;
 import apa.accessmodule.domain.model.LoginForm;
 import apa.accessmodule.domain.repository.AccountBoundary;
 import apa.accessmodule.domain.usecase.login.LoginUseCase;
+import apa.accessmodule.ui.navigation.Page;
 import apa.accessmodule.ui.presenter.PresenterAbs;
 
 /**
@@ -16,11 +17,13 @@ public class LoginPresenterImpl extends PresenterAbs implements LoginPresenter, 
 
     private LoginUseCase loginUseCase;
     private LoginView view;
+    private Page page;
 
 
-    public LoginPresenterImpl(LoginUseCase loginUseCase, LoginView loginView) {
+    public LoginPresenterImpl(LoginUseCase loginUseCase, LoginView loginView, Page page) {
         this.loginUseCase = loginUseCase;
         this.view = loginView;
+        this.page = page;
     }
 
 
@@ -48,6 +51,7 @@ public class LoginPresenterImpl extends PresenterAbs implements LoginPresenter, 
         view.clearErrors();
         view.hideLoading();
         view.logedIn();
+        page.nextPage();
     }
 
 

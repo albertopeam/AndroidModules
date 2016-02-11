@@ -16,6 +16,7 @@ import apa.accessmodule.domain.formvalidator.model.FieldError;
 import apa.accessmodule.domain.model.LoginForm;
 import apa.accessmodule.domain.repository.AccountBoundary;
 import apa.accessmodule.domain.usecase.login.LoginUseCase;
+import apa.accessmodule.ui.navigation.Page;
 import apa.accessmodule.ui.presenter.login.LoginPresenterImpl;
 import apa.accessmodule.ui.presenter.login.LoginView;
 
@@ -25,6 +26,7 @@ import static org.hamcrest.Matchers.is;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 /**
@@ -38,6 +40,7 @@ public class LoginPresenterSpec {
     @Mock LoginForm loginFormMock;
     @Mock LoginUseCase.LoginCallback callbackMock;
     @Mock FieldError fieldErrorMock;
+    @Mock Page<Void> pageMock;
     @Captor ArgumentCaptor<List<FieldError>> errorListArgumentCaptor;
     @Captor ArgumentCaptor<String> errorArgumentCaptor;
     private LoginPresenterImpl presenter;
@@ -46,7 +49,7 @@ public class LoginPresenterSpec {
     @Before
     public void setup(){
         MockitoAnnotations.initMocks(this);
-        presenter = new LoginPresenterImpl(loginUseCaseMock, viewMock);
+        presenter = new LoginPresenterImpl(loginUseCaseMock, viewMock, pageMock);
         when(fieldErrorMock.getReference()).then(new Answer<Integer>() {
             @Override
             public Integer answer(InvocationOnMock invocation) throws Throwable {
@@ -81,6 +84,7 @@ public class LoginPresenterSpec {
         verify(viewMock).showLoading();
         verify(viewMock).invalidForm(errorListArgumentCaptor.capture());
         verify(viewMock).hideLoading();
+        verifyNoMoreInteractions(pageMock);
         assertThat(errorListArgumentCaptor.getValue().size(), is(1));
     }
 
@@ -103,6 +107,7 @@ public class LoginPresenterSpec {
         verify(viewMock).clearErrors();
         verify(viewMock).hideLoading();
         verify(viewMock).loginError(errorArgumentCaptor.capture());
+        verifyNoMoreInteractions(pageMock);
         assertThat(errorArgumentCaptor.getValue(), equalTo("account not found"));
     }
 
@@ -128,5 +133,6 @@ public class LoginPresenterSpec {
         verify(viewMock).clearErrors();
         verify(viewMock).hideLoading();
         verify(viewMock).logedIn();
+        verify(pageMock).nextPage();
     }
 }

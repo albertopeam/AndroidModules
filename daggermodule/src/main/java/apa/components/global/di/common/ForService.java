@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package apa.daggermodule.common;
+package apa.components.global.di.common;
 
 import java.lang.annotation.Retention;
+
 import javax.inject.Scope;
 
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
@@ -27,4 +28,4 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  */
 @Scope
 @Retention(RUNTIME)
-public @interface ForActivity {}
+public @interface ForService {}

@@ -1,4 +1,4 @@
-package apa.daggermodule.common;
+package apa.components.global.di.common;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
@@ -10,6 +10,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Qualifier
 @Documented
 @Retention(RUNTIME)
-public @interface ExecutionScheduler {
-  String value() default "execution_scheduler";
+public @interface ListenScheduler {
+  String value() default "listen_scheduler";
 }
