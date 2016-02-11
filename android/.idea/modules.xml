@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/AndroidModules.iml" filepath="$PROJECT_DIR$/AndroidModules.iml" />
       <module fileurl="file://$PROJECT_DIR$/accessmodule/accessmodule.iml" filepath="$PROJECT_DIR$/accessmodule/accessmodule.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android.iml" filepath="$PROJECT_DIR$/android.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/daggermodule/daggermodule.iml" filepath="$PROJECT_DIR$/daggermodule/daggermodule.iml" />
       <module fileurl="file://$PROJECT_DIR$/executor/executor.iml" filepath="$PROJECT_DIR$/executor/executor.iml" />

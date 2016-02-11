@@ -13,10 +13,12 @@ public class LoginActivity extends AbsLoginActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //TODO:
+        //instalar ruby 2.3 rails device...y hacer api
+        //borrar modulo dagger
         //meter db
         //hacer server rails
         //api
-        //inyeccion
+        //inyeccion y creacion sin hacer
         //setPresenter();
     }
 }
