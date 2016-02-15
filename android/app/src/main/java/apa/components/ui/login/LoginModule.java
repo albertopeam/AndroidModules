@@ -1,4 +1,4 @@
-package apa.components.di.login;
+package apa.components.ui.login;
 
 
 import apa.accessmodule.domain.formvalidator.validator.LoginValidator;

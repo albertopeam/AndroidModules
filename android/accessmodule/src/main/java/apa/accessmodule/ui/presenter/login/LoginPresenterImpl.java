@@ -1,5 +1,7 @@
 package apa.accessmodule.ui.presenter.login;
 
+import android.annotation.SuppressLint;
+
 import java.util.List;
 
 import apa.accessmodule.domain.formvalidator.model.FieldError;
@@ -12,6 +14,7 @@ import apa.accessmodule.ui.presenter.PresenterAbs;
 /**
  * Created by alberto on 3/1/16.
  */
+@SuppressLint("ValidFragment")
 public class LoginPresenterImpl extends PresenterAbs implements LoginPresenter, LoginUseCase.LoginCallback{
 
 
@@ -68,6 +71,5 @@ public class LoginPresenterImpl extends PresenterAbs implements LoginPresenter, 
         view.hideLoading();
         view.invalidForm(fieldErrors);
     }
-
 
 }

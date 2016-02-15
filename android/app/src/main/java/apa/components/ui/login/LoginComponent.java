@@ -1,7 +1,7 @@
-package apa.components.di.login;
+package apa.components.ui.login;
 
-import apa.components.di.ExecutorModule;
 import apa.components.global.di.component.ApplicationComponent;
+import apa.components.global.di.module.executor.ExecutorModule;
 import apa.components.global.di.scope.ForActivity;
 import apa.components.ui.LoginActivity;
 import dagger.Component;

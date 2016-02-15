@@ -1,1 +1,1 @@
-include ':app', ':daggermodule', ':accessmodule', ':executor'
+include ':app', ':accessmodule', ':executor'

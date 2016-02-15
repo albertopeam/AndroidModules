@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package apa.components.di;
+package apa.components.global.di.module.executor;
 
 import javax.inject.Singleton;
 
