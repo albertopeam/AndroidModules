@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 ruby '2.2.3'
+
 gem 'rails', '4.2.5.1'
 gem 'sqlite3'
 gem 'sass-rails', '~> 5.0'
@@ -8,6 +9,10 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.4'
+gem 'simple_token_authentication', '~> 1.0' # see semver.org
+gem 'devise'
+gem 'high_voltage'
+
 group :development, :test do
   gem 'byebug'
 end
@@ -15,8 +20,6 @@ group :development do
   gem 'web-console', '~> 2.0'
   gem 'spring'
 end
-gem 'devise'
-gem 'high_voltage'
 group :development do
   gem 'better_errors'
   gem 'quiet_assets'
