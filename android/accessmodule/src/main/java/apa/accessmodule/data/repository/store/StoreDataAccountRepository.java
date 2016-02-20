@@ -1,7 +1,7 @@
 package apa.accessmodule.data.repository.store;
 
 import apa.accessmodule.data.model.entity.AccountEntity;
-import apa.accessmodule.data.model.mapper.cloud.AccountBoundaryToAccountEntityMapper;
+import apa.accessmodule.data.model.mapper.AccountBoundaryToAccountEntityMapper;
 import apa.accessmodule.domain.repository.AccountBoundary;
 import apa.accessmodule.domain.repository.StoreAccountRepository;
 

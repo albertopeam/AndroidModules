@@ -1,4 +1,4 @@
-package apa.accessmodule.data.model.cloud;
+package apa.components.data.api.cloud;
 
 /**
  * Created by alberto on 30/1/16.

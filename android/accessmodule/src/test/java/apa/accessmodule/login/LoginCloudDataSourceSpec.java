@@ -8,9 +8,7 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
 import apa.accessmodule.data.api.LoginApi;
-import apa.accessmodule.data.model.cloud.AccountCloud;
 import apa.accessmodule.data.model.entity.AccountEntity;
-import apa.accessmodule.data.model.mapper.cloud.AccountCloudMapper;
 import apa.accessmodule.data.repository.login.sources.LoginCloudDataSource;
 import apa.accessmodule.domain.model.LoginForm;
 
@@ -28,14 +26,13 @@ public class LoginCloudDataSourceSpec {
 
     @Mock LoginApi loginApiMock;
     @Mock LoginForm loginFormMock;
-    @Mock AccountCloudMapper mapper;
     LoginCloudDataSource loginCloudDataSource;
 
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        loginCloudDataSource = new LoginCloudDataSource(loginApiMock, mapper);
+        loginCloudDataSource = new LoginCloudDataSource(loginApiMock);
     }
 
 
@@ -55,24 +52,13 @@ public class LoginCloudDataSourceSpec {
         accountEntity.setEmail("a@gmail.com");
         accountEntity.setToken("abcd1234");
 
-        final AccountCloud accountCloudAnswer = new AccountCloud();
-        accountCloudAnswer.setEmail("a@gmail.com");
-        accountCloudAnswer.setToken("abcd1234");
-
-        when(loginApiMock.login(loginFormMock)).thenAnswer(new Answer<AccountCloud>() {
-            @Override
-            public AccountCloud answer(InvocationOnMock invocation) throws Throwable {
-                return accountCloudAnswer;
-            }
-        });
-        when(mapper.map(accountCloudAnswer)).thenAnswer(new Answer<AccountEntity>() {
+        when(loginApiMock.login(loginFormMock)).thenAnswer(new Answer<AccountEntity>() {
             @Override
             public AccountEntity answer(InvocationOnMock invocation) throws Throwable {
-                AccountEntity accountEntity = new AccountEntity();
-                AccountCloud accountCloud = accountCloudAnswer;
-                accountEntity.setEmail(accountCloud.getEmail());
-                accountEntity.setToken(accountCloud.getToken());
-                return accountEntity;
+                final AccountEntity accountEntity1 = new AccountEntity();
+                accountEntity1.setEmail("a@gmail.com");
+                accountEntity1.setToken("abcd1234");
+                return accountEntity1;
             }
         });
 

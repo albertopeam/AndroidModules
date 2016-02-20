@@ -1,7 +1,8 @@
-package apa.components.ui.login;
+package apa.components.ui.di;
 
 import apa.components.global.di.component.ApplicationComponent;
 import apa.components.global.di.module.executor.ExecutorModule;
+import apa.components.global.di.module.net.NetworkModule;
 import apa.components.global.di.scope.ForActivity;
 import apa.components.ui.LoginActivity;
 import dagger.Component;
@@ -15,7 +16,8 @@ import dagger.Component;
             },
             modules = {
                     LoginModule.class,
-                    ExecutorModule.class
+                    ExecutorModule.class,
+                    NetworkModule.class
             }
 )
 public interface LoginComponent {

@@ -19,7 +19,7 @@ public class ApiFactory {
      * @param endPoint REST endpoint url
      * @return retrofit service with defined endpoint
      */
-    protected static <T> T createRetrofitService(final Class<T> clazz, final String endPoint) {
+    public static <T> T createRetrofitService(final Class<T> clazz, final String endPoint) {
         Gson gson = new GsonBuilder()
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
                 .create();

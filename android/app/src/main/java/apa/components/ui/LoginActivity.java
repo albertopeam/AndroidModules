@@ -8,9 +8,9 @@ import apa.accessmodule.ui.presenter.login.LoginPresenterImpl;
 import apa.accessmodule.ui.view.AbsLoginActivity;
 import apa.components.global.AndroidApp;
 import apa.components.global.di.component.ApplicationComponent;
-import apa.components.ui.login.DaggerLoginComponent;
-import apa.components.ui.login.LoginComponent;
-import apa.components.ui.login.LoginModule;
+import apa.components.ui.di.DaggerLoginComponent;
+import apa.components.ui.di.LoginComponent;
+import apa.components.ui.di.LoginModule;
 
 /**
  * Created by alberto on 8/2/16.
@@ -24,9 +24,6 @@ public class LoginActivity extends AbsLoginActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //TODO: install ruby rails
-        //hacer server rails
-
         //TODO: hacer api android
         //api
 

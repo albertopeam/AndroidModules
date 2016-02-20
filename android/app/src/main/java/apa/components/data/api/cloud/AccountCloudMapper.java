@@ -1,6 +1,5 @@
-package apa.accessmodule.data.model.mapper.cloud;
+package apa.components.data.api.cloud;
 
-import apa.accessmodule.data.model.cloud.AccountCloud;
 import apa.accessmodule.data.model.entity.AccountEntity;
 import apa.accessmodule.data.model.mapper.Mapper;
 

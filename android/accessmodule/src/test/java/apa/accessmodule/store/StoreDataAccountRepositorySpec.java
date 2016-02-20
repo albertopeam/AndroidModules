@@ -8,7 +8,7 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
 import apa.accessmodule.data.model.entity.AccountEntity;
-import apa.accessmodule.data.model.mapper.cloud.AccountBoundaryToAccountEntityMapper;
+import apa.accessmodule.data.model.mapper.AccountBoundaryToAccountEntityMapper;
 import apa.accessmodule.data.repository.store.StoreAccountSource;
 import apa.accessmodule.data.repository.store.StoreDataAccountRepository;
 import apa.accessmodule.domain.repository.AccountBoundary;

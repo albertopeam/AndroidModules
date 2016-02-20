@@ -1,4 +1,4 @@
-package apa.accessmodule.data.model.mapper.cloud;
+package apa.accessmodule.data.model.mapper;
 
 import apa.accessmodule.data.model.entity.AccountEntity;
 import apa.accessmodule.data.model.mapper.Mapper;
