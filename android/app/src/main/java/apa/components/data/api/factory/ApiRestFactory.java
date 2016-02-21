@@ -11,7 +11,7 @@ import retrofit2.Retrofit;
 /**
  * Created by alberto on 31/1/16.
  */
-public class ApiFactory {
+public class ApiRestFactory {
 
     /**
      * Creates a retrofit service from an arbitrary class (clazz)

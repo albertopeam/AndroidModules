@@ -3,8 +3,8 @@ package apa.components.data.api.exception;
 /**
  * Created by alberto on 20/2/16.
  */
-public class LoginErrorException extends Exception {
-    public LoginErrorException(String detailMessage) {
+public class LoginApiException extends Exception {
+    public LoginApiException(String detailMessage) {
         super(detailMessage);
     }
 }

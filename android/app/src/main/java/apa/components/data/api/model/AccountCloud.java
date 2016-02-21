@@ -1,12 +1,13 @@
-package apa.components.data.api.cloud;
+package apa.components.data.api.model;
 
 /**
  * Created by alberto on 30/1/16.
  */
 public class AccountCloud {
 
+
     private String email;
-    private String token;
+    private String authentication_token;
 
 
     public String getEmail() {
@@ -18,11 +19,11 @@ public class AccountCloud {
     }
 
     public String getToken() {
-        return token!=null?token:"";
+        return authentication_token!=null?authentication_token:"";
     }
 
     public void setToken(String token) {
-        this.token = token;
+        this.authentication_token = token;
     }
 
     @Override

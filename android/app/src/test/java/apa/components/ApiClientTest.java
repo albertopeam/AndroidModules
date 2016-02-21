@@ -18,11 +18,13 @@ import static junit.framework.Assert.assertEquals;
 import static org.hamcrest.core.StringContains.containsString;
 
 public class ApiClientTest {
+
+
   private static final String FILE_ENCODING = "UTF-8";
   protected static final String ANY_TIME_ZONE = "PST";
   private static final int OK_CODE = 200;
-
   private MockWebServer server;
+
 
   @Before
   public void setUp() throws Exception {
@@ -70,6 +72,10 @@ public class ApiClientTest {
     for (String path : paths) {
       Assert.assertThat(request.getPath(), containsString(path));
     }
+  }
+
+  protected String getBaseEndpoint() {
+    return server.url("/").toString();
   }
 
 

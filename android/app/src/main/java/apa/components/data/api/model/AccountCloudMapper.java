@@ -1,4 +1,4 @@
-package apa.components.data.api.cloud;
+package apa.components.data.api.model;
 
 import apa.accessmodule.data.model.entity.AccountEntity;
 import apa.accessmodule.data.model.mapper.Mapper;

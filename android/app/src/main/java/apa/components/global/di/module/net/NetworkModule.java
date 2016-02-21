@@ -3,10 +3,10 @@ package apa.components.global.di.module.net;
 import javax.inject.Singleton;
 
 import apa.accessmodule.data.api.LoginApi;
-import apa.components.data.api.LoginAccountApi;
-import apa.components.data.api.adapter.LoginApiAdapter;
-import apa.components.data.api.cloud.AccountCloudMapper;
-import apa.components.data.api.factory.ApiFactory;
+import apa.components.data.api.LoginApiRest;
+import apa.components.data.api.client.LoginApiClient;
+import apa.components.data.api.model.AccountCloudMapper;
+import apa.components.data.api.factory.ApiRestFactory;
 import dagger.Module;
 import dagger.Provides;
 
@@ -23,8 +23,8 @@ public class NetworkModule {
     @Provides
     @Singleton
     LoginApi provideLoginApi(AccountCloudMapper accountCloudMapper){
-        LoginAccountApi api = ApiFactory.createRetrofitService(LoginAccountApi.class, ENDPOINT);
-        return new LoginApiAdapter(api, accountCloudMapper);
+        LoginApiRest api = ApiRestFactory.createRetrofitService(LoginApiRest.class, ENDPOINT);
+        return new LoginApiClient(api, accountCloudMapper);
     }
 
     @Provides
