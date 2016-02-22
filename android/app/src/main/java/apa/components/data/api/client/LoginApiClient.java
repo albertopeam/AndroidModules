@@ -1,21 +1,25 @@
 package apa.components.data.api.client;
 
+import com.google.gson.Gson;
+
 import java.io.IOException;
 
 import apa.accessmodule.data.model.entity.AccountEntity;
 import apa.accessmodule.domain.model.LoginForm;
 import apa.components.data.api.LoginApiRest;
+import apa.components.data.api.exception.LoginApiException;
 import apa.components.data.api.model.AccountCloud;
 import apa.components.data.api.model.AccountCloudMapper;
-import apa.components.data.api.exception.LoginApiException;
+import apa.components.data.api.model.ApiError;
 import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  * Created by alberto on 7/2/16.
  */
 public class LoginApiClient implements apa.accessmodule.data.api.LoginApi {
 
-
+    private static final int INVALID_AUTH_CODE = 401;
     private LoginApiRest loginApiRest;
     private AccountCloudMapper mapper;
 
@@ -37,11 +41,33 @@ public class LoginApiClient implements apa.accessmodule.data.api.LoginApi {
 
     private AccountCloud tryCall(Call<AccountCloud>call) throws LoginApiException {
         try {
-            AccountCloud accountCloud = call.execute().body();
-            return accountCloud;
+            Response<AccountCloud>response = call.execute();
+            if (response.isSuccess()){
+                AccountCloud accountCloud = response.body();
+                return accountCloud;
+            }else{
+                if (hasErrorBody(response)) {
+                    try {
+                        ApiError apiError = new Gson().fromJson(response.errorBody().string(), ApiError.class);
+                        throw new LoginApiException(code(response), apiError.message);
+                    } catch (IOException e) {
+                        throw new LoginApiException(code(response), e.getMessage());
+                    }
+                }else{
+                    throw new LoginApiException(code(response));
+                }
+            }
         }catch (IOException e) {
             throw new LoginApiException(getMessage(e));
         }
+    }
+
+    private int code(Response response){
+        return response.code();
+    }
+
+    private boolean hasErrorBody(Response response){
+        return response.errorBody() != null;
     }
 
     private String getMessage(Exception e){

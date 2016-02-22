@@ -79,7 +79,7 @@ public class ApiClientTest {
   }
 
 
-  private String getContentFromFile(String fileName) throws IOException {
+  protected String getContentFromFile(String fileName) throws IOException {
     fileName = getClass().getResource("/" + fileName).getFile();
     File file = new File(fileName);
     List<String> lines = FileUtils.readLines(file, FILE_ENCODING);
