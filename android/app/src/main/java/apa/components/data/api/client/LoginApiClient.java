@@ -19,7 +19,7 @@ import retrofit2.Response;
  */
 public class LoginApiClient implements apa.accessmodule.data.api.LoginApi {
 
-    private static final int INVALID_AUTH_CODE = 401;
+
     private LoginApiRest loginApiRest;
     private AccountCloudMapper mapper;
 
