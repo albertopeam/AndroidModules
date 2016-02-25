@@ -1,4 +1,4 @@
-package apa.components;
+package apa.components.api;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.After;

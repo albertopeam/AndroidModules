@@ -24,9 +24,6 @@ public class LoginActivity extends AbsLoginActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //TODO: hacer api android
-        //api
-
         //TODO:
         //meter db
         //Test integracion con db, tarea rake independiente(como en libro)

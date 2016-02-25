@@ -5,7 +5,7 @@ import javax.inject.Singleton;
 import apa.accessmodule.data.api.LoginApi;
 import apa.components.data.api.LoginApiRest;
 import apa.components.data.api.client.LoginApiClient;
-import apa.components.data.api.model.AccountCloudMapper;
+import apa.components.data.api.mapper.AccountCloudMapper;
 import apa.components.data.api.factory.ApiRestFactory;
 import dagger.Module;
 import dagger.Provides;

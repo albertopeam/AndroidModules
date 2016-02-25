@@ -9,7 +9,7 @@ import apa.accessmodule.domain.model.LoginForm;
 import apa.components.data.api.LoginApiRest;
 import apa.components.data.api.exception.LoginApiException;
 import apa.components.data.api.model.AccountCloud;
-import apa.components.data.api.model.AccountCloudMapper;
+import apa.components.data.api.mapper.AccountCloudMapper;
 import apa.components.data.api.model.ApiError;
 import retrofit2.Call;
 import retrofit2.Response;

@@ -1,4 +1,4 @@
-package apa.components;
+package apa.components.api;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -13,7 +13,7 @@ import apa.components.data.api.client.LoginApiClient;
 import apa.components.data.api.exception.LoginApiException;
 import apa.components.data.api.factory.ApiRestFactory;
 import apa.components.data.api.model.AccountCloud;
-import apa.components.data.api.model.AccountCloudMapper;
+import apa.components.data.api.mapper.AccountCloudMapper;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.http.Field;
