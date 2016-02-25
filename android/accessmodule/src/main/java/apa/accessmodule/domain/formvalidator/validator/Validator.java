@@ -12,17 +12,7 @@ import apa.accessmodule.domain.formvalidator.model.FieldError;
 public abstract class Validator {
 
 
-    private List<Field>fields;
     private List<FieldError>fieldErrors = new ArrayList<>();
-
-
-    public Validator(List<Field> fields) {
-        this.fields = fields;
-    }
-
-    protected List<Field>getFields(){
-        return fields;
-    }
 
 
     protected List<FieldError> getFieldErrors() {
@@ -34,6 +24,6 @@ public abstract class Validator {
     }
 
 
-    public abstract List<FieldError>validate();
+    public abstract List<FieldError>validate(List<Field> fields);
 
 }

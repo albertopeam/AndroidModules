@@ -5,7 +5,7 @@ import com.google.gson.Gson;
 import java.io.IOException;
 
 import apa.accessmodule.data.model.entity.AccountEntity;
-import apa.accessmodule.domain.model.LoginForm;
+import apa.accessmodule.domain.formvalidator.form.LoginForm;
 import apa.components.data.api.LoginApiRest;
 import apa.components.data.api.exception.LoginApiException;
 import apa.components.data.api.model.AccountCloud;

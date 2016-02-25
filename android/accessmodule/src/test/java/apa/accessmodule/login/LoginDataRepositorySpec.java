@@ -10,7 +10,7 @@ import org.mockito.stubbing.Answer;
 import apa.accessmodule.data.model.entity.AccountEntity;
 import apa.accessmodule.data.repository.login.LoginDataRepository;
 import apa.accessmodule.data.repository.login.sources.LoginCloudDataSource;
-import apa.accessmodule.domain.model.LoginForm;
+import apa.accessmodule.domain.formvalidator.form.LoginForm;
 import apa.accessmodule.domain.repository.AccountBoundary;
 
 import static org.hamcrest.MatcherAssert.assertThat;

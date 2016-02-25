@@ -15,7 +15,7 @@ import java.util.List;
 import apa.accessmodule.domain.formvalidator.model.FieldError;
 import apa.accessmodule.domain.formvalidator.validator.LoginValidator;
 import apa.accessmodule.domain.interactor.LoginInteractor;
-import apa.accessmodule.domain.model.LoginForm;
+import apa.accessmodule.domain.formvalidator.form.LoginForm;
 import apa.accessmodule.domain.repository.AccountBoundary;
 import apa.accessmodule.domain.repository.LoginRepository;
 import apa.accessmodule.domain.repository.StoreAccountRepository;

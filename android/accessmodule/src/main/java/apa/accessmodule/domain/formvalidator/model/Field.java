@@ -11,6 +11,10 @@ public class Field {
 
     public Field() {}
 
+    public Field(int reference, String content) {
+        this.reference = reference;
+        this.content = content;
+    }
 
     public int getReference() {
         return reference;

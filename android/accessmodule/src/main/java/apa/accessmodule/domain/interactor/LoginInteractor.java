@@ -4,7 +4,7 @@ import java.util.List;
 
 import apa.accessmodule.domain.formvalidator.model.FieldError;
 import apa.accessmodule.domain.formvalidator.validator.Validator;
-import apa.accessmodule.domain.model.LoginForm;
+import apa.accessmodule.domain.formvalidator.form.LoginForm;
 import apa.accessmodule.domain.repository.AccountBoundary;
 import apa.accessmodule.domain.repository.LoginRepository;
 import apa.accessmodule.domain.repository.StoreAccountRepository;
@@ -51,7 +51,7 @@ public class LoginInteractor extends UseCaseAbs implements LoginUseCase {
 
 
     private void login(){
-        List<FieldError>fieldErrors = loginValidator.validate();
+        List<FieldError>fieldErrors = loginValidator.validate(loginForm.fields());
         if (fieldErrors.isEmpty()){
             AccountBoundary accountBoundary = loginRepository.login(loginForm);
             onEndLogin(accountBoundary);

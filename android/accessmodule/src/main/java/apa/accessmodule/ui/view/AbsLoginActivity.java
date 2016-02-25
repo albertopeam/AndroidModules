@@ -17,7 +17,7 @@ import java.util.List;
 
 import apa.accessmodule.R;
 import apa.accessmodule.domain.formvalidator.model.FieldError;
-import apa.accessmodule.domain.model.LoginForm;
+import apa.accessmodule.domain.formvalidator.form.LoginForm;
 import apa.accessmodule.ui.presenter.login.LoginPresenter;
 import apa.accessmodule.ui.presenter.login.LoginView;
 

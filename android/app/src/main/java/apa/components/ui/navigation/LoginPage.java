@@ -19,7 +19,7 @@ public class LoginPage implements Page<Void> {
 
     @Override
     public void backPage() {
-
+        activity.finish();
     }
 
     @Override

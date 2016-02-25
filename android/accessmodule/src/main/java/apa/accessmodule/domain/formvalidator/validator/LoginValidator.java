@@ -24,13 +24,9 @@ public class LoginValidator extends Validator {
     );
 
 
-    public LoginValidator(List<Field> fields) {
-        super(fields);
-    }
-
     @Override
-    public List<FieldError> validate() {
-        for (Field field:getFields()){
+    public List<FieldError> validate(List<Field>fieldList) {
+        for (Field field:fieldList){
             if (field.getReference() == R.id.email){
                 if (!EMAIL_PATTERN.matcher(field.getContent()).matches()){
                     FieldError fieldError = new FieldError();

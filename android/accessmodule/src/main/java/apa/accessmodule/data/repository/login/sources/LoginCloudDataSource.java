@@ -4,7 +4,7 @@ package apa.accessmodule.data.repository.login.sources;
 import apa.accessmodule.data.api.LoginApi;
 import apa.accessmodule.data.model.entity.AccountEntity;
 import apa.accessmodule.data.repository.login.LoginDataSource;
-import apa.accessmodule.domain.model.LoginForm;
+import apa.accessmodule.domain.formvalidator.form.LoginForm;
 
 /**
  * Created by alberto on 30/1/16.

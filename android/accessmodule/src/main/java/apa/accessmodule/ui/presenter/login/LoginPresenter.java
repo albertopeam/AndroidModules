@@ -1,6 +1,6 @@
 package apa.accessmodule.ui.presenter.login;
 
-import apa.accessmodule.domain.model.LoginForm;
+import apa.accessmodule.domain.formvalidator.form.LoginForm;
 import apa.accessmodule.ui.presenter.Presenter;
 
 /**

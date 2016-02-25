@@ -1,11 +1,11 @@
-package apa.accessmodule.data;
+package apa.components.api;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import apa.accessmodule.data.model.cloud.AccountCloud;
 import apa.accessmodule.data.model.entity.AccountEntity;
-import apa.accessmodule.data.model.mapper.cloud.AccountCloudMapper;
+import apa.components.data.api.mapper.AccountCloudMapper;
+import apa.components.data.api.model.AccountCloud;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;

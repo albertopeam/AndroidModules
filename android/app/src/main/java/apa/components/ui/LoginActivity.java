@@ -25,8 +25,8 @@ public class LoginActivity extends AbsLoginActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //TODO:
-        //meter db
-        //Test integracion con db, tarea rake independiente(como en libro)
+        //revisar modulo acceso, falla import de executor en tests
+        //cambiado el login form, necesario retestear o pasar los tests del módulo al que pertenece
 
         //TODO:  validar
         //presenter con fragment, para reterner estado ante cambios de orientacion por ejemplo, foto pendiente

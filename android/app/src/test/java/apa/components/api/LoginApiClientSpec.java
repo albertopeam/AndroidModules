@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import apa.accessmodule.data.model.entity.AccountEntity;
-import apa.accessmodule.domain.model.LoginForm;
+import apa.accessmodule.domain.formvalidator.form.LoginForm;
 import apa.components.data.api.LoginApiRest;
 import apa.components.data.api.client.LoginApiClient;
 import apa.components.data.api.exception.LoginApiException;
