@@ -2,8 +2,10 @@ package apa.components.global;
 
 import android.app.Application;
 
+import com.frogermcs.dagger2metrics.Dagger2Metrics;
 import com.raizlabs.android.dbflow.config.FlowManager;
 
+import apa.components.BuildConfig;
 import apa.components.global.di.Graph;
 import apa.components.global.di.component.ApplicationComponent;
 import apa.components.global.di.component.DaggerApplicationComponent;
@@ -21,6 +23,9 @@ public class AndroidApp extends Application implements Graph {
     @Override
     public void onCreate() {
         super.onCreate();
+        if (BuildConfig.DEBUG) {
+            Dagger2Metrics.enableCapturing(this);
+        }
         initGraph();
         FlowManager.init(this);
     }

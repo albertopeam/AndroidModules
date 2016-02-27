@@ -29,7 +29,7 @@ public class LoginValidatorSpec {
     @Before
     public void setUp(){
         fields = new ArrayList<>();
-        loginValidator = new LoginValidator(fields);
+        loginValidator = new LoginValidator();
     }
 
     @Test
@@ -38,7 +38,7 @@ public class LoginValidatorSpec {
         emailField.setReference(R.id.email);
         emailField.setContent("a.com");
         fields.add(emailField);
-        List<FieldError>errors = loginValidator.validate();
+        List<FieldError>errors = loginValidator.validate(fields);
         assertThat(errors.size(), is(1));
     }
 
@@ -49,7 +49,7 @@ public class LoginValidatorSpec {
         passwordField.setReference(R.id.password);
         passwordField.setContent("q");
         fields.add(passwordField);
-        List<FieldError>errors = loginValidator.validate();
+        List<FieldError>errors = loginValidator.validate(fields);
         assertThat(errors.size(), is(1));
     }
 
@@ -66,7 +66,7 @@ public class LoginValidatorSpec {
         passwordField.setContent("qwerty");
         fields.add(passwordField);
 
-        List<FieldError>errors = loginValidator.validate();
+        List<FieldError>errors = loginValidator.validate(fields);
 
         assertThat(errors.size(), is(0));
     }

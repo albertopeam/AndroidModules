@@ -3,6 +3,8 @@ package apa.components.ui;
 import android.app.FragmentManager;
 import android.os.Bundle;
 
+import javax.inject.Inject;
+
 import apa.accessmodule.ui.presenter.login.LoginPresenter;
 import apa.accessmodule.ui.presenter.login.LoginPresenterImpl;
 import apa.accessmodule.ui.view.AbsLoginActivity;
@@ -18,15 +20,12 @@ import apa.components.ui.di.LoginModule;
 public class LoginActivity extends AbsLoginActivity{
 
 
-    private LoginPresenterImpl presenter;
+    @Inject LoginPresenter presenter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        //TODO:
-        //revisar modulo acceso, falla import de executor en tests
-        //cambiado el login form, necesario retestear o pasar los tests del módulo al que pertenece
+
 
         //TODO:  validar
         //presenter con fragment, para reterner estado ante cambios de orientacion por ejemplo, foto pendiente
@@ -35,6 +34,7 @@ public class LoginActivity extends AbsLoginActivity{
         //TODO: validar -> inyeccion y creacion sin hacer
         initializeInyections();
         initializePresenter();
+        super.onCreate(savedInstanceState);
     }
 
     private void initializeInyections() {
@@ -51,12 +51,10 @@ public class LoginActivity extends AbsLoginActivity{
         FragmentManager fm = getFragmentManager();
         LoginPresenterImpl retainedPresenter = (LoginPresenterImpl) fm.findFragmentByTag(LoginPresenterImpl.class.getSimpleName());
         if (retainedPresenter == null){
-            //dagger presenter
-            fm.beginTransaction().add(presenter, LoginPresenter.class.getSimpleName()).commit();
+            fm.beginTransaction().add((LoginPresenterImpl)presenter, LoginPresenter.class.getSimpleName()).commit();//dagger presenter
         }else{
-            //retained presenter
-            presenter = retainedPresenter;
+            presenter = retainedPresenter;//retained presenter
         }
-        setPresenter(retainedPresenter);
+        setLoginPresenter(presenter);
     }
 }

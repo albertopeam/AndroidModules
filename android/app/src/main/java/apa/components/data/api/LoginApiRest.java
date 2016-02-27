@@ -12,6 +12,6 @@ import retrofit2.http.POST;
 public interface LoginApiRest {
 
     @FormUrlEncoded
-    @POST("/login")
+    @POST("login")
     Call<AccountCloud> login(@Field("email") String email, @Field("password") String password);
 }

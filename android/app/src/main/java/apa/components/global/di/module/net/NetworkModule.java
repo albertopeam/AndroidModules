@@ -1,12 +1,11 @@
 package apa.components.global.di.module.net;
 
-import javax.inject.Singleton;
-
 import apa.accessmodule.data.api.LoginApi;
+import apa.components.BuildConfig;
 import apa.components.data.api.LoginApiRest;
 import apa.components.data.api.client.LoginApiClient;
-import apa.components.data.api.mapper.AccountCloudMapper;
 import apa.components.data.api.factory.ApiRestFactory;
+import apa.components.data.api.mapper.AccountCloudMapper;
 import dagger.Module;
 import dagger.Provides;
 
@@ -17,18 +16,18 @@ import dagger.Provides;
 public class NetworkModule {
 
 
-    private String ENDPOINT = "http://localhost:3000/api";
+    private String LOCAL_ENDPOINT = "http://192.168.0.12:3000/api/";
+    protected String ENDPOINT = BuildConfig.DEBUG?LOCAL_ENDPOINT:LOCAL_ENDPOINT;
 
 
     @Provides
-    @Singleton
     LoginApi provideLoginApi(AccountCloudMapper accountCloudMapper){
         LoginApiRest api = ApiRestFactory.createRetrofitService(LoginApiRest.class, ENDPOINT);
         return new LoginApiClient(api, accountCloudMapper);
     }
 
+
     @Provides
-    @Singleton
     AccountCloudMapper provideMapper(){
         return new AccountCloudMapper();
     }

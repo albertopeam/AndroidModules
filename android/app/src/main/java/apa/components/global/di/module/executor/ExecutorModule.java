@@ -15,8 +15,6 @@
  */
 package apa.components.global.di.module.executor;
 
-import javax.inject.Singleton;
-
 import apa.executor.Executor;
 import apa.executor.MainThread;
 import apa.executor.MainThreadImpl;
@@ -27,13 +25,13 @@ import dagger.Provides;
 @Module
 public final class ExecutorModule {
 
-  @Provides @Singleton
-  Executor provideExecutor(ThreadExecutor threadExecutor) {
-    return threadExecutor;
+  @Provides
+  Executor provideExecutor() {
+    return new ThreadExecutor();
   }
 
-  @Provides @Singleton
-  MainThread provideMainThread(MainThreadImpl mainThread) {
-    return mainThread;
+  @Provides
+  MainThread provideMainThread() {
+    return new MainThreadImpl();
   }
 }

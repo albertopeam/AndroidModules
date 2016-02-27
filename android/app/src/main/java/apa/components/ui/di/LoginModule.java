@@ -16,12 +16,7 @@ import apa.accessmodule.domain.usecase.login.LoginUseCase;
 import apa.accessmodule.ui.presenter.login.LoginPresenter;
 import apa.accessmodule.ui.presenter.login.LoginPresenterImpl;
 import apa.accessmodule.ui.view.AbsLoginActivity;
-import apa.components.BuildConfig;
 import apa.components.R;
-import apa.components.data.api.LoginApiRest;
-import apa.components.data.api.client.LoginApiClient;
-import apa.components.data.api.factory.ApiRestFactory;
-import apa.components.data.api.mapper.AccountCloudMapper;
 import apa.components.data.cache.StoreAccountCacheDataSource;
 import apa.components.data.database.mapper.AccountPersistenceMapper;
 import apa.components.data.database.source.StoreAccountPersistenceDataSource;
@@ -41,9 +36,6 @@ import dagger.Provides;
 @Module
 public class LoginModule extends ActivityModule{
 
-    private String LOCAL_ENDPOINT = "http://127.0.0.1:3000";
-    protected String ENDPOINT = BuildConfig.DEBUG?LOCAL_ENDPOINT:LOCAL_ENDPOINT;
-
 
     public LoginModule(AbsLoginActivity activity) {
         super(activity);
@@ -52,7 +44,7 @@ public class LoginModule extends ActivityModule{
 
     @ForActivity
     @Provides
-    LoginPresenter providePresenter(LoginValidator loginValidator, LoginUseCase loginUseCase, LoginPage loginPage){
+    LoginPresenter providePresenter(LoginUseCase loginUseCase, LoginPage loginPage){
         return new LoginPresenterImpl(loginUseCase, (AbsLoginActivity)activity, loginPage);
     }
 
@@ -106,20 +98,6 @@ public class LoginModule extends ActivityModule{
     @Provides
     LoginDataSource provideLoginDataSource(LoginApi loginApi){
         return new LoginCloudDataSource(loginApi);
-    }
-
-
-    @ForActivity
-    @Provides
-    LoginApi provideLoginApi(LoginApiRest loginApiRest){
-        return new LoginApiClient(loginApiRest, new AccountCloudMapper());
-    }
-
-
-    @ForActivity
-    @Provides
-    LoginApiRest provideLoginApiRest(){
-        return ApiRestFactory.createRetrofitService(LoginApiRest.class, ENDPOINT);
     }
 
 

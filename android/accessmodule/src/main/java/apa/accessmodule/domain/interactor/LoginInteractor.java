@@ -56,7 +56,7 @@ public class LoginInteractor extends UseCaseAbs implements LoginUseCase {
             AccountBoundary accountBoundary = loginRepository.login(loginForm);
             onEndLogin(accountBoundary);
         }else{
-            callback.invalidForm(fieldErrors);
+            onInvalidForm(fieldErrors);
         }
     }
 
@@ -76,6 +76,19 @@ public class LoginInteractor extends UseCaseAbs implements LoginUseCase {
         }else{
             accountBoundary.setException(new Exception(errorStore));
             onError(accountBoundary);
+        }
+    }
+
+
+    private void onInvalidForm(final List<FieldError>fieldErrors){
+        if (hasCallback()) {
+            runOnMainThread(new Runnable() {
+                @Override
+                public void run() {
+                    callback.invalidForm(fieldErrors);
+                }
+            });
+
         }
     }
 

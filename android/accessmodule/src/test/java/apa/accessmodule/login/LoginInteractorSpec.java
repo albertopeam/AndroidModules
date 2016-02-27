@@ -47,7 +47,7 @@ public class LoginInteractorSpec {
     @Mock LoginUseCase.LoginCallback callbackMock;
     @Mock LoginRepository loginRepositoryMock;
     @Mock LoginInteractor loginInteractor;
-    @Mock LoginValidator loginValidator;
+    @Mock LoginValidator loginValidatorMock;
     @Mock LoginForm loginFormMock;
     @Mock StoreAccountRepository storeAccountRepositoryMock;
     @Captor ArgumentCaptor<List<FieldError>> listArgumentCaptor;
@@ -59,7 +59,7 @@ public class LoginInteractorSpec {
     @Before
     public void setUp(){
         MockitoAnnotations.initMocks(this);
-        loginInteractor = new LoginInteractor(executorMock, mainThreadMock, loginValidator,loginRepositoryMock, storeAccountRepositoryMock, errorStore);
+        loginInteractor = new LoginInteractor(executorMock, mainThreadMock, loginValidatorMock,loginRepositoryMock, storeAccountRepositoryMock, errorStore);
 
         doAnswer(new Answer() {
             @Override
@@ -81,7 +81,7 @@ public class LoginInteractorSpec {
 
     @Test
     public void whenFormIsNotValidThenInvokeInvalidFormCallback(){
-        when(loginValidator.validate()).thenAnswer(new Answer<List<FieldError>>() {
+        when(loginValidatorMock.validate(any(List.class))).thenAnswer(new Answer<List<FieldError>>() {
             @Override
             public List<FieldError> answer(InvocationOnMock invocation) throws Throwable {
                 List<FieldError>fieldErrors = new ArrayList<FieldError>();
@@ -106,7 +106,7 @@ public class LoginInteractorSpec {
     public void whenAccountNotExistsThenError(){
         LoginForm loginForm = new LoginForm();
 
-        when(loginValidator.validate()).thenAnswer(new Answer<List<FieldError>>() {
+        when(loginValidatorMock.validate(any(List.class))).thenAnswer(new Answer<List<FieldError>>() {
             @Override
             public List<FieldError> answer(InvocationOnMock invocation) throws Throwable {
                 return new ArrayList<>();
@@ -140,7 +140,7 @@ public class LoginInteractorSpec {
         accountBoundary.setEmail("a@gmail.com");
         accountBoundary.setToken("abcd1234");
 
-        when(loginValidator.validate()).thenAnswer(new Answer<List<FieldError>>() {
+        when(loginValidatorMock.validate(any(List.class))).thenAnswer(new Answer<List<FieldError>>() {
             @Override
             public List<FieldError> answer(InvocationOnMock invocation) throws Throwable {
                 return new ArrayList<>();
@@ -180,7 +180,7 @@ public class LoginInteractorSpec {
         accountBoundary.setEmail("a@gmail.com");
         accountBoundary.setToken("abcd1234");
 
-        when(loginValidator.validate()).thenAnswer(new Answer<List<FieldError>>() {
+        when(loginValidatorMock.validate(any(List.class))).thenAnswer(new Answer<List<FieldError>>() {
             @Override
             public List<FieldError> answer(InvocationOnMock invocation) throws Throwable {
                 return new ArrayList<>();

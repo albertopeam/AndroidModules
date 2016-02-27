@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -16,8 +15,8 @@ import android.widget.Toast;
 import java.util.List;
 
 import apa.accessmodule.R;
-import apa.accessmodule.domain.formvalidator.model.FieldError;
 import apa.accessmodule.domain.formvalidator.form.LoginForm;
+import apa.accessmodule.domain.formvalidator.model.FieldError;
 import apa.accessmodule.ui.presenter.login.LoginPresenter;
 import apa.accessmodule.ui.presenter.login.LoginView;
 
@@ -28,7 +27,7 @@ import apa.accessmodule.ui.presenter.login.LoginView;
 public abstract class AbsLoginActivity extends AppCompatActivity implements LoginView {
 
 
-    private LoginPresenter presenter;
+    private LoginPresenter loginPresenter;
     private EditText emailET;
     private EditText passwordET;
     private ProgressBar progressBar;
@@ -49,11 +48,12 @@ public abstract class AbsLoginActivity extends AppCompatActivity implements Logi
     }
 
     private void onDestroyActivity() {
-        presenter.destroy();
+        loginPresenter.destroy();
     }
 
     private void onCreateActivity() {
-        presenter.create();
+        //TODO: ojo si se invoca al rotar....
+        loginPresenter.create();
     }
 
 
@@ -64,8 +64,8 @@ public abstract class AbsLoginActivity extends AppCompatActivity implements Logi
     }
 
 
-    protected void setPresenter(LoginPresenter loginPresenter){
-        this.presenter = loginPresenter;
+    protected void setLoginPresenter(LoginPresenter loginPresenter){
+        this.loginPresenter = loginPresenter;
     }
 
 
@@ -80,7 +80,7 @@ public abstract class AbsLoginActivity extends AppCompatActivity implements Logi
         passwordET.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEND) {
-                    presenter.login(makeForm());
+                    loginPresenter.login(makeForm());
                     return true;
                 }
                 return false;
@@ -128,7 +128,7 @@ public abstract class AbsLoginActivity extends AppCompatActivity implements Logi
 
     @Override
     public void loginError(String error) {
-        final ViewGroup viewGroup = (ViewGroup) ((ViewGroup) findViewById(android.R.id.content)).getChildAt(0);
+        //final ViewGroup viewGroup = (ViewGroup) ((ViewGroup) findViewById(android.R.id.content)).getChildAt(0);
         Toast.makeText(AbsLoginActivity.this, error, Toast.LENGTH_LONG).show();
     }
 
