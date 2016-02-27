@@ -25,7 +25,10 @@ public class LoginActivity extends AbsLoginActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //TODO: not connects to server!!!
 
+        //TODO: move network module to application level because, it might be a singleton
+        //TODO: maybe need to move another compònents that interviews in network
 
         //TODO:  validar
         //presenter con fragment, para reterner estado ante cambios de orientacion por ejemplo, foto pendiente
