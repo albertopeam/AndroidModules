@@ -17,11 +17,9 @@ import apa.accessmodule.ui.presenter.login.LoginPresenter;
 import apa.accessmodule.ui.presenter.login.LoginPresenterImpl;
 import apa.accessmodule.ui.view.AbsLoginActivity;
 import apa.components.R;
-import apa.components.data.cache.StoreAccountCacheDataSource;
 import apa.components.data.database.mapper.AccountPersistenceMapper;
 import apa.components.data.database.source.StoreAccountPersistenceDataSource;
 import apa.components.global.di.module.ActivityModule;
-import apa.components.global.di.scope.Cache;
 import apa.components.global.di.scope.Database;
 import apa.components.global.di.scope.ForActivity;
 import apa.components.ui.navigation.LoginPage;
@@ -65,17 +63,19 @@ public class LoginModule extends ActivityModule{
 
     @ForActivity
     @Provides
-    StoreAccountRepository provideStoreAccountRepository(@Cache StoreAccountSource cacheStoreAccountSource, @Database StoreAccountSource dbStoreAccountSource){
-        return new StoreDataAccountRepository(cacheStoreAccountSource, dbStoreAccountSource, new AccountBoundaryToAccountEntityMapper());
+    StoreAccountRepository provideStoreAccountRepository(/*@Cache StoreAccountSource cacheStoreAccountSource,*/ @Database StoreAccountSource dbStoreAccountSource){
+        return new StoreDataAccountRepository(null, dbStoreAccountSource, new AccountBoundaryToAccountEntityMapper());
     }
 
 
+    /*
     @ForActivity
     @Provides
     @Cache
     StoreAccountSource provideStoreAccountSourceCache(){
         return new StoreAccountCacheDataSource();
     }
+    */
 
 
     @ForActivity

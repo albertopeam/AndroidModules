@@ -1,6 +1,7 @@
 package apa.components.ui.navigation;
 
 import android.app.Activity;
+import android.util.Log;
 
 import apa.accessmodule.ui.navigation.Page;
 
@@ -9,7 +10,7 @@ import apa.accessmodule.ui.navigation.Page;
  */
 public class LoginPage implements Page<Void> {
 
-
+    private static final String TAG = LoginPage.class.getSimpleName();
     private Activity activity;
 
 
@@ -24,7 +25,7 @@ public class LoginPage implements Page<Void> {
 
     @Override
     public void nextPage() {
-
+        Log.d(TAG, "nextPage");
     }
 
     @Override

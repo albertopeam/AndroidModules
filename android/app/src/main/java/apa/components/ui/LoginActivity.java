@@ -25,7 +25,7 @@ public class LoginActivity extends AbsLoginActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //TODO: not connects to server!!!
+        //TODO: implement mem cache
 
         //TODO: move network module to application level because, it might be a singleton
         //TODO: maybe need to move another compònents that interviews in network
@@ -33,8 +33,7 @@ public class LoginActivity extends AbsLoginActivity{
         //TODO:  validar
         //presenter con fragment, para reterner estado ante cambios de orientacion por ejemplo, foto pendiente
         //https://www.youtube.com/watch?v=JbUnxCeVxg8 minuto 19
-
-        //TODO: validar -> inyeccion y creacion sin hacer
+        
         initializeInyections();
         initializePresenter();
         super.onCreate(savedInstanceState);

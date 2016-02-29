@@ -8,7 +8,6 @@ import apa.accessmodule.data.repository.store.StoreAccountSource;
  */
 public class StoreAccountCacheDataSource implements StoreAccountSource{
 
-
     @Override
     public boolean store(AccountEntity accountEntity) {
         return false;
